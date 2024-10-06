@@ -1,4 +1,4 @@
-﻿#include <iostream>
+﻿﻿#include <iostream>
 #include <string>
 #include <fstream>
 
@@ -6,21 +6,15 @@ using namespace std;
 
 struct Pipe
 {
-    string pipename;
-    int pipelength;
-    int pipediameter;
-    int piperepair;
-	int repair;
+public:
+	string pipename = "";
+	int pipelength = 0;
+	int pipediameter = 0;
+	int piperepair = 0;
+	int repair = 0;
 
 };
 
-struct CS
-{
-    string csname;
-    int csshop;
-    int csworkshop;
-    double csefficiency;
-};
 
 template <typename T>
 void InputCorrectNumber(T& var)
@@ -46,7 +40,7 @@ void AddPipe(Pipe& pipe) {
 	InputCorrectNumber(pipe.pipediameter);
 	cout << "Is the pipe being repaired? (1 - Yes, 2 - No) ";
 	cin >> pipe.repair;
-	while (!(pipe.repair == 2 || pipe.repair == 1)) 
+	while (!(pipe.repair == 2 || pipe.repair == 1))
 	{
 		cin.clear();
 		cin.ignore(1000, '\n');
@@ -54,4 +48,54 @@ void AddPipe(Pipe& pipe) {
 		pipe.piperepair = pipe.repair;
 	}
 
+}
+
+
+void show_Pipe(const Pipe& p)
+{
+	if (p.pipename != "")
+	{
+		cout << "------PIPELINE------" <<
+			"\nName: " << p.pipename <<
+			"\nLength: " << p.pipelength <<
+			"\nDiameter: " << p.pipediameter <<
+			"\nUnder repair? " << p.piperepair <<
+			"\n--------------------" << endl;
+	}
+	else
+	{
+		cout << "Create pipeline first" << endl;
+	}
+}
+
+int main()
+{
+
+	setlocale(LC_ALL, "Russian");
+	Pipe pipeline;
+
+	int chose;
+
+	do
+	{
+		cout << "1. Показать информацию о трубе\n";
+		cout << "2. Добавить трубу\n";
+
+		switch (chose)
+		{
+		case 1:
+			AddPipe(pipeline);
+			break;
+
+		case 2:
+			AddPipe(pipeline);
+			break;
+
+
+		default:
+			break;
+		}
+
+	} while (chose != 0);
+	return 0;
 }
