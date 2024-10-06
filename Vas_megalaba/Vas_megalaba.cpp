@@ -1,20 +1,8 @@
-﻿﻿#include <iostream>
+﻿#include <iostream>
 #include <string>
 #include <fstream>
 
 using namespace std;
-
-struct Pipe
-{
-public:
-	string pipename = "";
-	int pipelength = 0;
-	int pipediameter = 0;
-	int piperepair = 0;
-	int repair = 0;
-
-};
-
 
 template <typename T>
 void InputCorrectNumber(T& var)
@@ -27,46 +15,139 @@ void InputCorrectNumber(T& var)
 		cout << "Error! Please enter correct data: ";
 		cin >> var;
 	}
-}
+};
 
-void AddPipe(Pipe& pipe) {
-	cout << "Enter the name of the pipe: ";
-	cin.ignore();
-	getline(cin, pipe.pipename);
-	cout << "Enter the pipe length (in kilometers): ";
-	InputCorrectNumber(pipe.pipelength);
+struct Pipe
+{
+	string pipename = "";
+	int pipelength = 0;
+	int pipediameter = 0;
+	int piperepair = 0;
+	int repair = 0;
 
-	cout << "Enter the pipe diameter (in millimeters): ";
-	InputCorrectNumber(pipe.pipediameter);
-	cout << "Is the pipe being repaired? (1 - Yes, 2 - No) ";
-	cin >> pipe.repair;
-	while (!(pipe.repair == 2 || pipe.repair == 1))
+};
+
+int AddPipe(Pipe& pipe) {
+	if ((pipe.pipelength == 0) || (pipe.pipediameter == 0) || (pipe.pipename == "") || (pipe.piperepair != 0) || (pipe.piperepair != 1))
 	{
-		cin.clear();
-		cin.ignore(1000, '\n');
-		cout << "Error! Please enter correct data: ";
-		pipe.piperepair = pipe.repair;
-	}
+		system("cls");
 
-}
+		cout << "Введите название трубы: ";
+		cin.ignore();
+		getline(cin, pipe.pipename);
+		cout << "Введите длину трубы: ";
+		InputCorrectNumber(pipe.pipelength);
+
+		cout << "Введите диаметр трубы: ";
+		InputCorrectNumber(pipe.pipediameter);
+		cout << "Находится ли труба сейчас в ремонте?? (1 - Yes, 2 - No) ";
+		cin >> pipe.repair;
+		InputCorrectNumber(pipe.repair);
+		if (pipe.repair == 1 || pipe.repair == 2)
+		{
+			pipe.piperepair = pipe.repair;
+		}
+
+		else
+		{
+
+			cout << "Ошибка! Введите значение "1" или "2"";
+			cout << "\n\n";
+		}
+		system("cls");
+	}
+	else 
+	{
+		cout << "У вас уже есть труба\n\n";
+		return 1;
+	}
+};
 
 
 void show_Pipe(const Pipe& p)
 {
 	if (p.pipename != "")
 	{
+		system("cls");
 		cout << "------PIPELINE------" <<
 			"\nName: " << p.pipename <<
 			"\nLength: " << p.pipelength <<
 			"\nDiameter: " << p.pipediameter <<
 			"\nUnder repair? " << p.piperepair <<
-			"\n--------------------" << endl;
+			"\n--------------------\n\n";
+
 	}
 	else
 	{
-		cout << "Create pipeline first" << endl;
+		system("cls");
+		cout << "Create pipeline first\n\n";
 	}
-}
+};
+
+int ChangeRepair(Pipe& pipe)
+{
+	//cout << "изменить ремонт\n\n";
+	if (!(pipe.piperepair == 0))
+	{
+		cout << "Is the pipe being repaired? (1 - Yes, 2 - No) ";
+		cin >> pipe.repair;
+		InputCorrectNumber(pipe.repair);
+		if (pipe.repair == 1 || pipe.repair == 2)
+		{
+			pipe.piperepair = pipe.repair;
+		}
+		else
+		{
+			system("cls");
+			cout << "Error! Введите "1" или "2" ";
+			cout << "\n\n";
+		}
+
+		system("cls");
+	}
+	else
+	{
+		system("cls");
+		cout << "У вас нет трубы\n\n";
+	}
+	return 1;
+};
+
+struct CS
+{
+	string csname = "";
+	int csworkshop = 0;
+	int csworkshop_in_active = 0;
+	int cseffective = 0;
+
+};
+
+//void AddCS(CS& cs) {
+//	cout << "Enter the name of the CS: ";
+//	cin.ignore();
+//	getline(cin, cs.csname);
+//	cout << "Enter the number of workshops: ";
+//	InputCorrectNumber(cs.csworkshop;
+//
+//	cout << "Enter the number of workshops in operation: ";
+//	InputCorrectNumber(cs.csworkshop_in_active);
+//	cout << "Enter efficiency CS ";
+//	cin >> cs.cseffective;
+//	while (cs.cseffective < 0)
+//	{
+//		cin.clear();
+//		cin.ignore(1000, '\n');
+//		cout << "Error! Please enter correct data: ";
+//		pipe.piperepair = pipe.repair;
+//	}
+
+//};
+
+
+
+
+
+
 
 int main()
 {
@@ -78,21 +159,36 @@ int main()
 
 	do
 	{
+
+		cout << "------MENU------\n";
 		cout << "1. Показать информацию о трубе\n";
 		cout << "2. Добавить трубу\n";
+		cout << "3. Изменить состояние ремонта\n";
+		cout << "----------------\n";
+
+		cout << "\nВыбор действия: ";
+
+		cin >> chose;
+
 
 		switch (chose)
 		{
 		case 1:
-			AddPipe(pipeline);
+			show_Pipe(pipeline);
 			break;
 
 		case 2:
 			AddPipe(pipeline);
 			break;
 
+		case 3:
+			ChangeRepair(pipeline);
+			break;
+
 
 		default:
+			system("cls");
+			cout << "Такого пункта нет в меню\n\n";
 			break;
 		}
 
