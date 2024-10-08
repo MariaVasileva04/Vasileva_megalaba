@@ -40,19 +40,24 @@ int AddPipe(Pipe& pipe) {
 
 		cout << "Введите диаметр трубы: ";
 		InputCorrectNumber(pipe.pipediameter);
-		cout << "Находится ли труба сейчас в ремонте?? (1 - Yes, 2 - No) ";
-		cin >> pipe.repair;
+		cout << "Находится ли труба сейчас в ремонте?? (1 - Да, 2 - Нет) ";
 		InputCorrectNumber(pipe.repair);
 		if (pipe.repair == 1 || pipe.repair == 2)
 		{
 			pipe.piperepair = pipe.repair;
+			
+			
 		}
 
 		else
 		{
-
-			cout << "Ошибка! Введите значение 1 или 2";
-			cout << "\n\n";
+			system("cls");
+			cout << "Ошибка! Введите значение 1 или 2\n\n";
+			pipe.piperepair = 0;
+			pipe.pipename = "";
+			pipe.pipelength = 0;
+			pipe.pipediameter = 0;
+			
 		}
 		system("cls");
 	}
@@ -73,7 +78,7 @@ void show_Pipe(const Pipe& p)
 			"\nНазвание: " << p.pipename <<
 			"\nДлина: " << p.pipelength <<
 			"\nДиаметр: " << p.pipediameter <<
-			"\nНаходится в ремонте? " << p.piperepair <<
+			"\nНаходится в ремонте? (1 - Да, 2 - Нет) " << p.piperepair <<
 			"\n--------------------\n\n";
 
 	}
@@ -90,18 +95,21 @@ int ChangeRepair(Pipe& pipe)
 	if (!(pipe.piperepair == 0))
 	{
 		cout << "Труба в ремонте? (1 - Да, 2 - Нет) ";
-		cin >> pipe.repair;
 		InputCorrectNumber(pipe.repair);
 		if (pipe.repair == 1 || pipe.repair == 2)
 		{
 			pipe.piperepair = pipe.repair;
+
 		}
+
 		else
 		{
 			system("cls");
-			cout << "Ошибка! Введите 1 или 2 ";
-			cout << "\n\n";
+			cout << "Ошибка! Введите значение 1 или 2\n\n";
+			pipe.piperepair = 2;
+
 		}
+		
 
 		system("cls");
 	}
@@ -118,6 +126,7 @@ struct CS
 	string csname = "";
 	int csworkshop = 0;
 	int csworkshop_in_active = 0;
+	int csws = 0;
 	double cseffective = 0;
 
 };
@@ -134,9 +143,26 @@ int AddCS(CS& cs)
 		InputCorrectNumber(cs.csworkshop);
 
 		cout << "Введите количество цехов в работе: ";
-		InputCorrectNumber(cs.csworkshop_in_active);
+		InputCorrectNumber(cs.csws);
+		if ((cs.csws) > (cs.csworkshop))
+		{
+			system("cls");
+			cout << "Количество активных цехов не должно превышать количество всех цехов\n\n";
+			cs.csworkshop = 0;
+			cs.csworkshop_in_active = 0;
+			cs.csname = "";
+		}
+		else
+		{
+			cs.csworkshop_in_active = cs.csws;
+		}
 
 		cs.cseffective = double(cs.csworkshop_in_active) / double(cs.csworkshop);
+	}
+	else
+	{
+		system("cls");
+		cout << "У вас уже есть компрессорная станция \n\n";
 	}
 	return 1;
 };
@@ -172,7 +198,20 @@ int AddCS(CS& cs)
 				cout << "Введите количество цехов: \n";
 				InputCorrectNumber(cs.csworkshop);
 				cout << "Введите количество работающих цехов: \n";
-				InputCorrectNumber(cs.csworkshop_in_active);
+				InputCorrectNumber(cs.csws);
+				if ((cs.csws) > (cs.csworkshop))
+				{
+					system("cls");
+					cout << "Количество активных цехов не должно превышать количество всех цехов\n\n";
+					cs.csworkshop = 1;
+					cs.csworkshop_in_active = 1;
+
+					
+				}
+				else
+				{
+					cs.csworkshop_in_active = cs.csws;
+				}
 				if (cs.csworkshop > 0 || cs.csworkshop_in_active > 0)
 				{
 					break;
