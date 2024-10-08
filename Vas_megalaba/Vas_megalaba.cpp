@@ -118,34 +118,76 @@ struct CS
 	string csname = "";
 	int csworkshop = 0;
 	int csworkshop_in_active = 0;
-	int cseffective = 0;
+	double cseffective = 0;
 
 };
+int AddCS(CS& cs) 
+{
+	if ((cs.csworkshop == 0) || (cs.csworkshop_in_active == 0) || (cs.cseffective == 0) || (cs.csname == ""))
+	{
+		system("cls");
 
-//void AddCS(CS& cs) {
-//	cout << "Enter the name of the CS: ";
-//	cin.ignore();
-//	getline(cin, cs.csname);
-//	cout << "Enter the number of workshops: ";
-//	InputCorrectNumber(cs.csworkshop;
-//
-//	cout << "Enter the number of workshops in operation: ";
-//	InputCorrectNumber(cs.csworkshop_in_active);
-//	cout << "Enter efficiency CS ";
-//	cin >> cs.cseffective;
-//	while (cs.cseffective < 0)
-//	{
-//		cin.clear();
-//		cin.ignore(1000, '\n');
-//		cout << "Error! Please enter correct data: ";
-//		pipe.piperepair = pipe.repair;
-//	}
+		cout << "Введите название компрессорной станции: ";
+		cin.ignore();
+		getline(cin, cs.csname);
+		cout << "Введите количество цехов: ";
+		InputCorrectNumber(cs.csworkshop);
 
-//};
+		cout << "Введите количество цехов в работе: ";
+		InputCorrectNumber(cs.csworkshop_in_active);
 
+		cs.cseffective = double(cs.csworkshop_in_active) / double(cs.csworkshop);
+	}
+	return 1;
+};
 
+	void show_CS(const CS & cs)
+	 {
+		if (cs.csname != "")
+		{
+			system("cls");
+			cout << "------КС------" <<
+				"\nНазвание: " << cs.csname <<
+				"\nКоличество цехов: " << cs.csworkshop <<
+				"\nКоличество цехов в работе: " << cs.csworkshop_in_active <<
+				"\nЭффективность: " << cs.cseffective <<
+				"\n--------------------\n\n";
 
+		}
+		else
+		{
+			system("cls");
+			cout << "Создайте свою первую КС\n\n";
+		}
+	};
 
+	int ChangeCS(CS& cs)
+	{
+	
+		if (cs.csworkshop > 0)
+		{
+			while (true)
+			{
+				
+				cout << "Введите количество цехов: \n";
+				InputCorrectNumber(cs.csworkshop);
+				cout << "Введите количество работающих цехов: \n";
+				InputCorrectNumber(cs.csworkshop_in_active);
+				if (cs.csworkshop > 0 || cs.csworkshop_in_active > 0)
+				{
+					break;
+				}
+			}
+		}
+		else
+		{
+			system("cls");
+			cout << "Создайте компрессорную станцию \n\n";
+		}
+
+		cs.cseffective = double(cs.csworkshop_in_active) / double(cs.csworkshop);
+		return  1;
+	};
 
 
 
@@ -154,6 +196,7 @@ int main()
 
 	setlocale(LC_ALL, "Russian");
 	Pipe pipeline;
+	CS cs;
 
 	int chose;
 
@@ -164,6 +207,9 @@ int main()
 		cout << "1. Показать информацию о трубе\n";
 		cout << "2. Добавить трубу\n";
 		cout << "3. Изменить состояние ремонта\n";
+		cout << "4. Показать информацию о КС\n";
+		cout << "5. Добавить КС\n";
+		cout << "6. Изменить количество рабочих цехов\n";
 		cout << "----------------\n";
 
 		cout << "\nВыбор действия: ";
@@ -183,6 +229,18 @@ int main()
 
 		case 3:
 			ChangeRepair(pipeline);
+			break;
+
+		case 4:
+			show_CS(cs);
+			break;
+
+		case 5: 
+			AddCS(cs);
+			break;
+
+		case 6:
+			ChangeCS(cs);
 			break;
 
 
