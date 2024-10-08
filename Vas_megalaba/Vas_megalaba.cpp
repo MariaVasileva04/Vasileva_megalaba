@@ -12,7 +12,7 @@ void InputCorrectNumber(T& var)
 	{
 		cin.clear();
 		cin.ignore(1000, '\n');
-		cout << "Error! Please enter correct data: ";
+		cout << "Ошибка! Пожалуйста введите корректное значение: ";
 		cin >> var;
 	}
 };
@@ -28,7 +28,7 @@ struct Pipe
 };
 
 int AddPipe(Pipe& pipe) {
-	if ((pipe.pipelength == 0) || (pipe.pipediameter == 0) || (pipe.pipename == "") || (pipe.piperepair != 0) || (pipe.piperepair != 1))
+	if ((pipe.pipelength == 0) || (pipe.pipediameter == 0) || (pipe.pipename == "") || (pipe.piperepair != 2) || (pipe.piperepair != 1))
 	{
 		system("cls");
 
@@ -51,7 +51,7 @@ int AddPipe(Pipe& pipe) {
 		else
 		{
 
-			cout << "Ошибка! Введите значение "1" или "2"";
+			cout << "Ошибка! Введите значение 1 или 2";
 			cout << "\n\n";
 		}
 		system("cls");
@@ -69,18 +69,18 @@ void show_Pipe(const Pipe& p)
 	if (p.pipename != "")
 	{
 		system("cls");
-		cout << "------PIPELINE------" <<
-			"\nName: " << p.pipename <<
-			"\nLength: " << p.pipelength <<
-			"\nDiameter: " << p.pipediameter <<
-			"\nUnder repair? " << p.piperepair <<
+		cout << "------ТРУБА------" <<
+			"\nНазвание: " << p.pipename <<
+			"\nДлина: " << p.pipelength <<
+			"\nДиаметр: " << p.pipediameter <<
+			"\nНаходится в ремонте? " << p.piperepair <<
 			"\n--------------------\n\n";
 
 	}
 	else
 	{
 		system("cls");
-		cout << "Create pipeline first\n\n";
+		cout << "Создайте свою первую трубу\n\n";
 	}
 };
 
@@ -89,7 +89,7 @@ int ChangeRepair(Pipe& pipe)
 	//cout << "изменить ремонт\n\n";
 	if (!(pipe.piperepair == 0))
 	{
-		cout << "Is the pipe being repaired? (1 - Yes, 2 - No) ";
+		cout << "Труба в ремонте? (1 - Да, 2 - Нет) ";
 		cin >> pipe.repair;
 		InputCorrectNumber(pipe.repair);
 		if (pipe.repair == 1 || pipe.repair == 2)
@@ -99,7 +99,7 @@ int ChangeRepair(Pipe& pipe)
 		else
 		{
 			system("cls");
-			cout << "Error! Введите "1" или "2" ";
+			cout << "Ошибка! Введите 1 или 2 ";
 			cout << "\n\n";
 		}
 
@@ -160,7 +160,7 @@ int main()
 	do
 	{
 
-		cout << "------MENU------\n";
+		cout << "------МЕНЮ------\n";
 		cout << "1. Показать информацию о трубе\n";
 		cout << "2. Добавить трубу\n";
 		cout << "3. Изменить состояние ремонта\n";
