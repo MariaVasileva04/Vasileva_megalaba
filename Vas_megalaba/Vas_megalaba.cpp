@@ -48,6 +48,7 @@ int AddPipe(Pipe& pipe) {
 		InputCorrectNumber(pipe.repair);
 		if (pipe.repair!= 1 || pipe.repair != 2)
 		{
+			pipe.piperepair = pipe.repair;
 			while (!(pipe.piperepair == 2 || pipe.piperepair == 1))
 			{
 				cin.clear();
@@ -56,6 +57,10 @@ int AddPipe(Pipe& pipe) {
 				InputCorrectNumber(pipe.piperepair);
 
 			}
+		}
+		else
+		{
+			pipe.piperepair = pipe.repair;
 		}
 
 		
@@ -85,6 +90,7 @@ int ChangeRepair(Pipe& pipe)
 		 
 		if (pipe.repair != 1 || pipe.repair != 2)
 		{
+			pipe.piperepair = pipe.repair;
 			while (!(pipe.piperepair == 2 || pipe.piperepair == 1))
 			{
 
@@ -329,7 +335,7 @@ int main()
 
 		cout << "\nВыбор действия: ";
 
-		cin >> chose;
+		InputCorrectNumber(chose);
 
 
 		switch (chose)
