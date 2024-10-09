@@ -23,7 +23,7 @@ struct Pipe
 	int pipelength = 0;
 	int pipediameter = 0;
 	int piperepair = 0;
-	int repair = 0;
+
 
 };
 
@@ -41,13 +41,13 @@ int AddPipe(Pipe& pipe) {
 		cout << "Введите диаметр трубы: ";
 		InputCorrectNumber(pipe.pipediameter);
 		cout << "Находится ли труба сейчас в ремонте?? (1 - Да, 2 - Нет) ";
-		while (!(pipe.repair == 2 || pipe.repair == 1))
+		while (!(pipe.piperepair == 2 || pipe.piperepair == 1))
 		{
 			cin.clear();
 			cin.ignore(100000, '\n');
 			cout << "Ошибка! Введите 1 или 2: ";
-			InputCorrectNumber(pipe.repair);
-			pipe.piperepair = pipe.repair;
+			InputCorrectNumber(pipe.piperepair);
+			
 		}
 		system("cls");
 
@@ -86,7 +86,7 @@ int ChangeRepair(Pipe& pipe)
 	//cout << "изменить ремонт\n\n";
 	if (!(pipe.piperepair == 0))
 	{
-		pipe.repair = 0;
+		pipe.piperepair = 0;
 		cout << "Находится ли труба сейчас в ремонте?? (1 - Да, 2 - Нет) ";
 		/*InputCorrectNumber(pipe.repair);
 		if (!(pipe.repair == 2 || pipe.repair == 1))
@@ -100,12 +100,12 @@ int ChangeRepair(Pipe& pipe)
 			pipe.piperepair = pipe.repair;
 		}*/
 		
-		while (!(pipe.repair == 2 || pipe.repair == 1))
+		while (!(pipe.piperepair == 2 || pipe.piperepair == 1))
 		{
 			
 			cout << "Ошибка! Введите 1 или 2: ";
-			InputCorrectNumber(pipe.repair);
-			pipe.piperepair = pipe.repair;
+			InputCorrectNumber(pipe.piperepair);
+			
 		}
 
 
@@ -124,7 +124,6 @@ struct CS
 	string csname = "";
 	int csworkshop = 0;
 	int csworkshop_in_active = 0;
-	int csws = 0;
 	double cseffective = 0;
 
 };
@@ -179,7 +178,19 @@ int ChangeCS(CS& cs)
 
 	if (cs.csworkshop > 0)
 	{
-		while (true)
+		cout << "Введите количество цехов: ";
+		InputCorrectNumber(cs.csworkshop);
+
+		cout << "Введите количество цехов в работе: ";
+		InputCorrectNumber(cs.csworkshop_in_active);
+		while (!((cs.csworkshop) > (cs.csworkshop_in_active)))
+		{
+
+			cout << "Количество активных цехов не должно превышать количество всех цехов\n\n";
+			cout << "Введите корректное значение: ";
+			InputCorrectNumber(cs.csworkshop_in_active);
+		}
+		/*while (true)
 		{
 
 			cout << "Введите количество цехов: \n";
@@ -203,7 +214,7 @@ int ChangeCS(CS& cs)
 			{
 				break;
 			}
-		}
+		}*/
 	}
 	else
 	{
