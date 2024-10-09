@@ -313,6 +313,7 @@ int main()
 		cout << "5. Изменить количество рабочих цехов\n";
 		cout << "6. Cохранить в файл\n";
 		cout << "7. Взять данные из файла\n";
+		cout << "8. Выйти из программы\n";
 		cout << "----------------\n";
 
 		cout << "\nВыбор действия: ";
@@ -349,6 +350,10 @@ int main()
 		case 7:
 			Load("import.txt",pipeline, cs);
 			break;
+
+		case 8:
+			cout << "До новых встреч!" << endl;
+			return 0;
 
 
 		default:
