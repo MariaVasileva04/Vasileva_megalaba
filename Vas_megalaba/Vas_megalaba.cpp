@@ -141,8 +141,15 @@ int AddCS(CS& cs)
 		InputCorrectNumber(cs.csworkshop);
 
 		cout << "Введите количество цехов в работе: ";
-		InputCorrectNumber(cs.csws);
-		if ((cs.csws) > (cs.csworkshop))
+		InputCorrectNumber(cs.csworkshop_in_active);
+		while (!((cs.csworkshop) > (cs.csworkshop_in_active)))
+		{
+			
+			cout<< "Количество активных цехов не должно превышать количество всех цехов\n\n";
+			cout << "Введите корректное значение: ";
+			InputCorrectNumber(cs.csworkshop_in_active);
+		}
+		/*if ((cs.csws) > (cs.csworkshop))
 		{
 			system("cls");
 			cout << "Количество активных цехов не должно превышать количество всех цехов\n\n";
@@ -153,7 +160,7 @@ int AddCS(CS& cs)
 		else
 		{
 			cs.csworkshop_in_active = cs.csws;
-		}
+		}*/
 
 		cs.cseffective = double(cs.csworkshop_in_active) / double(cs.csworkshop);
 	}
@@ -242,6 +249,7 @@ void show_All( Pipe& p, CS& cs)
 	}
 	else if ((p.pipename == "") && (cs.csname != ""))
 	{
+		system("cls");
 		cout << "------КС------" <<
 			"\nНазвание: " << cs.csname <<
 			"\nКоличество цехов: " << cs.csworkshop <<
