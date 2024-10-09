@@ -86,20 +86,26 @@ int ChangeRepair(Pipe& pipe)
 	//cout << "изменить ремонт\n\n";
 	if (!(pipe.piperepair == 0))
 	{
-		cout << "Труба в ремонте? (1 - Да, 2 - Нет) ";
-		InputCorrectNumber(pipe.repair);
-		if (pipe.repair == 1 || pipe.repair == 2)
+		pipe.repair = 0;
+		cout << "Находится ли труба сейчас в ремонте?? (1 - Да, 2 - Нет) ";
+		/*InputCorrectNumber(pipe.repair);
+		if (!(pipe.repair == 2 || pipe.repair == 1))
 		{
-			pipe.piperepair = pipe.repair;
-
+			
+			cout << "Ошибка. Введите 1 или 2: ";
+			
 		}
-
 		else
 		{
-			system("cls");
-			cout << "Ошибка! Введите значение 1 или 2\n\n";
-			pipe.piperepair = 2;
-
+			pipe.piperepair = pipe.repair;
+		}*/
+		
+		while (!(pipe.repair == 2 || pipe.repair == 1))
+		{
+			
+			cout << "Ошибка! Введите 1 или 2: ";
+			InputCorrectNumber(pipe.repair);
+			pipe.piperepair = pipe.repair;
 		}
 
 
