@@ -41,32 +41,43 @@ int AddPipe(Pipe& pipe) {
 		cout << "Введите диаметр трубы: ";
 		InputCorrectNumber(pipe.pipediameter);
 		cout << "Находится ли труба сейчас в ремонте?? (1 - Да, 2 - Нет) ";
-		InputCorrectNumber(pipe.repair);
-		if (pipe.repair == 1 || pipe.repair == 2)
+		while (!(pipe.repair == 2 || pipe.repair == 1))
 		{
+			cin.clear();
+			cin.ignore(100000, '\n');
+			cout << "Ошибка! Введите 1 или 2: ";
+			InputCorrectNumber(pipe.repair);
 			pipe.piperepair = pipe.repair;
+		}
+		system("cls");
+
+		/*if (pipe.repair == 1 || pipe.repair == 2)
+		{
+		  pipe.piperepair = pipe.repair;
 
 
 		}
 
 		else
 		{
-			system("cls");
-			cout << "Ошибка! Введите значение 1 или 2\n\n";
-			pipe.piperepair = 0;
-			pipe.pipename = "";
-			pipe.pipelength = 0;
-			pipe.pipediameter = 0;
+		  system("cls");
+		  cout << "Ошибка! Введите значение 1 или 2\n\n";
+		  pipe.piperepair = 0;
+		  pipe.pipename = "";
+		  pipe.pipelength = 0;
+		  pipe.pipediameter = 0;
 
 		}
-		system("cls");
+		system("cls");*/
 	}
 	else
 	{
+		system("cls");
 		cout << "У вас уже есть труба\n\n";
 		return 1;
 	}
 };
+
 
 
 
