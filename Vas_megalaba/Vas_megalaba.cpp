@@ -5,6 +5,8 @@
 
 using namespace std;
 
+
+
 template <typename T>
 void InputCorrectNumber(T& var)
 {
@@ -231,11 +233,11 @@ void Save(Pipe& pipe, CS& cs)
 			out << "Name of pipe: "  ;
 			out << (pipe.pipename) << endl;
 			out << "lenght of pipe: ";
-			out << (pipe.pipelength) << endl;
+			out << std::to_string(pipe.pipelength) << endl;
 			out << "diametr of pipe: ";
-			out << (pipe.pipediameter) << endl;
+			out << std::to_string(pipe.pipediameter) << endl;
 			out << "Is repairing (1 - Yes, 2 - No)?: ";
-			out << (pipe.piperepair) << endl;
+			out << std::to_string(pipe.piperepair) << endl;
 		}
 
 		if (cs.csname == "")
@@ -247,15 +249,47 @@ void Save(Pipe& pipe, CS& cs)
 			out << "Name of CS: ";
 			out << cs.csname << endl;
 			out << "Workshop: ";
-			out << (cs.csworkshop) << endl;
+			out << std::to_string(cs.csworkshop) << endl;
 			out << "Workshop in active: ";
-			out << (cs.csworkshop_in_active) << endl;
+			out << std::to_string(cs.csworkshop_in_active) << endl;
 			out << "Effectivity: ";
-			out << (cs.cseffective) << endl;
+			out << std::to_string(cs.cseffective) << endl;
 		}
 	}
 	out.close();
-	cout << "Данные записаны в файл\n" << std::endl;
+	cout << "Данные записаны в файл\n";
+}
+
+void Load(string filename, Pipe& pipe, CS& cs)
+{
+	ifstream infile;
+		infile.open(filename);
+	if (infile.is_open())
+	{
+		string name, nameC;
+		int lenghtStr, diameterStr, repairStr, numShopsStr, workingShopsStr;
+		double effeciencyStr;
+		infile >> name;
+		infile >> lenghtStr;
+		infile >> diameterStr;
+		infile >> repairStr;
+		pipe.pipename = name;
+		pipe.pipelength = lenghtStr;
+		pipe.pipediameter = diameterStr;
+		pipe.piperepair = repairStr;
+
+		infile >> nameC;
+		infile >> numShopsStr;
+		infile >> workingShopsStr;
+		infile >> effeciencyStr;
+		cs.csname = nameC;
+		cs.csworkshop = numShopsStr;
+		cs.csworkshop_in_active = workingShopsStr;
+		cs.cseffective = effeciencyStr;
+	}
+	infile.close();
+	cout << "Данные из файла сохранены " << filename;
+	cout << "\n\n";
 }
 
 
@@ -278,6 +312,7 @@ int main()
 		cout << "4. Добавить КС\n";
 		cout << "5. Изменить количество рабочих цехов\n";
 		cout << "6. Cохранить в файл\n";
+		cout << "7. Взять данные из файла\n";
 		cout << "----------------\n";
 
 		cout << "\nВыбор действия: ";
@@ -309,6 +344,10 @@ int main()
 
 		case 6:
 			Save(pipeline, cs);
+			break;
+
+		case 7:
+			Load("import.txt",pipeline, cs);
 			break;
 
 
