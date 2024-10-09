@@ -1,6 +1,7 @@
 ﻿#include <iostream>
 #include <string>
 #include <fstream>
+#include <sstream>
 
 using namespace std;
 
@@ -51,24 +52,7 @@ int AddPipe(Pipe& pipe) {
 		}
 		system("cls");
 
-		/*if (pipe.repair == 1 || pipe.repair == 2)
-		{
-		  pipe.piperepair = pipe.repair;
-
-
-		}
-
-		else
-		{
-		  system("cls");
-		  cout << "Ошибка! Введите значение 1 или 2\n\n";
-		  pipe.piperepair = 0;
-		  pipe.pipename = "";
-		  pipe.pipelength = 0;
-		  pipe.pipediameter = 0;
-
-		}
-		system("cls");*/
+		
 	}
 	else
 	{
@@ -88,17 +72,7 @@ int ChangeRepair(Pipe& pipe)
 	{
 		pipe.piperepair = 0;
 		cout << "Находится ли труба сейчас в ремонте?? (1 - Да, 2 - Нет) ";
-		/*InputCorrectNumber(pipe.repair);
-		if (!(pipe.repair == 2 || pipe.repair == 1))
-		{
-			
-			cout << "Ошибка. Введите 1 или 2: ";
-			
-		}
-		else
-		{
-			pipe.piperepair = pipe.repair;
-		}*/
+		
 		
 		while (!(pipe.piperepair == 2 || pipe.piperepair == 1))
 		{
@@ -148,18 +122,7 @@ int AddCS(CS& cs)
 			cout << "Введите корректное значение: ";
 			InputCorrectNumber(cs.csworkshop_in_active);
 		}
-		/*if ((cs.csws) > (cs.csworkshop))
-		{
-			system("cls");
-			cout << "Количество активных цехов не должно превышать количество всех цехов\n\n";
-			cs.csworkshop = 0;
-			cs.csworkshop_in_active = 0;
-			cs.csname = "";
-		}
-		else
-		{
-			cs.csworkshop_in_active = cs.csws;
-		}*/
+		
 
 		cs.cseffective = double(cs.csworkshop_in_active) / double(cs.csworkshop);
 	}
@@ -190,31 +153,7 @@ int ChangeCS(CS& cs)
 			cout << "Введите корректное значение: ";
 			InputCorrectNumber(cs.csworkshop_in_active);
 		}
-		/*while (true)
-		{
 
-			cout << "Введите количество цехов: \n";
-			InputCorrectNumber(cs.csworkshop);
-			cout << "Введите количество работающих цехов: \n";
-			InputCorrectNumber(cs.csws);
-			if ((cs.csws) > (cs.csworkshop))
-			{
-				system("cls");
-				cout << "Количество активных цехов не должно превышать количество всех цехов\n\n";
-				cs.csworkshop = 1;
-				cs.csworkshop_in_active = 1;
-
-
-			}
-			else
-			{
-				cs.csworkshop_in_active = cs.csws;
-			}
-			if (cs.csworkshop > 0 || cs.csworkshop_in_active > 0)
-			{
-				break;
-			}
-		}*/
 	}
 	else
 	{
@@ -277,6 +216,48 @@ void show_All( Pipe& p, CS& cs)
 	}
 };
 
+void Save(Pipe& pipe, CS& cs)
+{
+	ofstream out;
+	out.open("save.txt");
+	if (out.is_open())
+	{
+		if (pipe.pipename == "")
+		{
+			cout << "У вас нет трубы \n";
+		}
+		else
+		{
+			out << "Name of pipe: "  ;
+			out << (pipe.pipename) << endl;
+			out << "lenght of pipe: ";
+			out << (pipe.pipelength) << endl;
+			out << "diametr of pipe: ";
+			out << (pipe.pipediameter) << endl;
+			out << "Is repairing (1 - Yes, 2 - No)?: ";
+			out << (pipe.piperepair) << endl;
+		}
+
+		if (cs.csname == "")
+		{
+			cout << "У вас нет компрессорной станции\n";
+
+		}
+		else {
+			out << "Name of CS: ";
+			out << cs.csname << endl;
+			out << "Workshop: ";
+			out << (cs.csworkshop) << endl;
+			out << "Workshop in active: ";
+			out << (cs.csworkshop_in_active) << endl;
+			out << "Effectivity: ";
+			out << (cs.cseffective) << endl;
+		}
+	}
+	out.close();
+	cout << "Данные записаны в файл\n" << std::endl;
+}
+
 
 int main()
 {
@@ -296,6 +277,7 @@ int main()
 		cout << "3. Изменить состояние ремонта\n";
 		cout << "4. Добавить КС\n";
 		cout << "5. Изменить количество рабочих цехов\n";
+		cout << "6. Cохранить в файл\n";
 		cout << "----------------\n";
 
 		cout << "\nВыбор действия: ";
@@ -323,6 +305,10 @@ int main()
 
 		case 5:
 			ChangeCS(cs);
+			break;
+
+		case 6:
+			Save(pipeline, cs);
 			break;
 
 
