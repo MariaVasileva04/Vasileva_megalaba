@@ -26,6 +26,7 @@ struct Pipe
 	int pipelength = 0;
 	int pipediameter = 0;
 	int piperepair = 0;
+	int repair = 0;
 
 
 };
@@ -44,14 +45,20 @@ int AddPipe(Pipe& pipe) {
 		cout << "Введите диаметр трубы: ";
 		InputCorrectNumber(pipe.pipediameter);
 		cout << "Находится ли труба сейчас в ремонте?? (1 - Да, 2 - Нет) ";
-		while (!(pipe.piperepair == 2 || pipe.piperepair == 1))
+		InputCorrectNumber(pipe.repair);
+		if (pipe.repair!= 1 || pipe.repair != 2)
 		{
-			cin.clear();
-			cin.ignore(100000, '\n');
-			cout << "Ошибка! Введите 1 или 2: ";
-			InputCorrectNumber(pipe.piperepair);
-			
+			while (!(pipe.piperepair == 2 || pipe.piperepair == 1))
+			{
+				cin.clear();
+				cin.ignore(100000, '\n');
+				cout << "Ошибка! Введите 1 или 2: ";
+				InputCorrectNumber(pipe.piperepair);
+
+			}
 		}
+
+		
 		system("cls");
 
 		
@@ -74,15 +81,19 @@ int ChangeRepair(Pipe& pipe)
 	{
 		pipe.piperepair = 0;
 		cout << "Находится ли труба сейчас в ремонте?? (1 - Да, 2 - Нет) ";
-		
-		
-		while (!(pipe.piperepair == 2 || pipe.piperepair == 1))
+		InputCorrectNumber(pipe.repair);
+		 
+		if (pipe.repair != 1 || pipe.repair != 2)
 		{
-			
-			cout << "Ошибка! Введите 1 или 2: ";
-			InputCorrectNumber(pipe.piperepair);
-			
+			while (!(pipe.piperepair == 2 || pipe.piperepair == 1))
+			{
+
+				cout << "Ошибка! Введите 1 или 2: ";
+				InputCorrectNumber(pipe.piperepair);
+
+			}
 		}
+		
 
 
 		system("cls");
