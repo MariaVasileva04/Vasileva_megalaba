@@ -11,7 +11,7 @@ template <typename T>
 void InputCorrectNumber(T& var)
 {
 	cin >> var;
-	while (cin.fail() || cin.peek() != '\n' || var < 1)
+	while (cin.fail() || cin.peek() != '\n' || var < 0)
 	{
 		cin.clear();
 		cin.ignore(1000, '\n');
@@ -23,72 +23,67 @@ void InputCorrectNumber(T& var)
 struct Pipe
 {
 	string pipename = "";
-	int pipelength = 0;
+	double pipelength = 0;
 	int pipediameter = 0;
-	int piperepair = 0;
-	int repair = 0;
-
-
+	bool piperepair =0;
+	
 };
 
 int AddPipe(Pipe& pipe) {
-	if ((pipe.pipelength == 0) || (pipe.pipediameter == 0) || (pipe.pipename == "") || (pipe.piperepair != 2) || (pipe.piperepair != 1))
-	{
-		system("cls");
-
-		cout << "Введите название трубы: ";
-		cin.ignore();
-		getline(cin, pipe.pipename);
-		cout << "Введите длину трубы: ";
-		InputCorrectNumber(pipe.pipelength);
-
-		cout << "Введите диаметр трубы: ";
-		InputCorrectNumber(pipe.pipediameter);
-		cout << "Находится ли труба сейчас в ремонте?? (1 - Да, 2 - Нет) ";
-		InputCorrectNumber(pipe.repair);
-		if (pipe.repair!= 1 || pipe.repair != 2)
-		{
-			pipe.piperepair = pipe.repair;
-			while (!(pipe.piperepair == 2 || pipe.piperepair == 1))
-			{
-				cin.clear();
-				cin.ignore(100000, '\n');
-				cout << "Ошибка! Введите 1 или 2: ";
-				InputCorrectNumber(pipe.piperepair);
-
-			}
-		}
-		else
-		{
-			pipe.piperepair = pipe.repair;
-		}
-
-		
-		system("cls");
-
-		
-	}
-	else
+	if ((pipe.pipename != ""))
 	{
 		system("cls");
 		cout << "У вас уже есть труба\n\n";
 		return 1;
 	}
-};
 
+	system("cls");//!
+
+	cout << "Введите название трубы: ";
+	cin.ignore();
+	getline(cin, pipe.pipename);
+	cout << "Введите длину трубы: ";
+	InputCorrectNumber(pipe.pipelength);
+
+	cout << "Введите диаметр трубы: ";
+	InputCorrectNumber(pipe.pipediameter);
+	cout << "Находится ли труба сейчас в ремонте?? (1 - Да, 0 - Нет) ";
+	InputCorrectNumber(pipe.piperepair);
+	/*if (pipe.repair!= 1 || pipe.repair != 2)
+	{
+		pipe.piperepair = pipe.repair;
+		while (!(pipe.piperepair == 2 || pipe.piperepair == 1))
+		{
+			cin.clear();
+			cin.ignore(100000, '\n');
+			cout << "Ошибка! Введите 1 или 2: ";
+			InputCorrectNumber(pipe.piperepair);
+
+		}
+	}
+	else
+	{
+		pipe.piperepair = pipe.repair;
+	}*/
+
+
+	system("cls");//!!!!
+
+	//!!???
+}
 
 
 
 int ChangeRepair(Pipe& pipe)
 {
 	//cout << "изменить ремонт\n\n";
-	if (!(pipe.piperepair == 0))
+	if (pipe.pipelength != 0)
 	{
 		pipe.piperepair = 0;
-		cout << "Находится ли труба сейчас в ремонте?? (1 - Да, 2 - Нет) ";
-		InputCorrectNumber(pipe.repair);
+		cout << "Находится ли труба сейчас в ремонте?? (1 - Да, 0 - Нет) ";
+		InputCorrectNumber(pipe.piperepair);
 		 
-		if (pipe.repair != 1 || pipe.repair != 2)
+		/*if (pipe.repair != 1 || pipe.repair != 2)
 		{
 			pipe.piperepair = pipe.repair;
 			while (!(pipe.piperepair == 2 || pipe.piperepair == 1))
@@ -98,7 +93,7 @@ int ChangeRepair(Pipe& pipe)
 				InputCorrectNumber(pipe.piperepair);
 
 			}
-		}
+		}*/
 		
 
 
@@ -122,7 +117,7 @@ struct CS
 };
 int AddCS(CS& cs)
 {
-	if ((cs.csworkshop == 0) || (cs.csworkshop_in_active == 0) || (cs.cseffective == 0) || (cs.csname == ""))
+	if ((cs.csname==""))
 	{
 		system("cls");
 
@@ -134,7 +129,7 @@ int AddCS(CS& cs)
 
 		cout << "Введите количество цехов в работе: ";
 		InputCorrectNumber(cs.csworkshop_in_active);
-		while (!((cs.csworkshop) > (cs.csworkshop_in_active)))
+		while (!((cs.csworkshop) >= (cs.csworkshop_in_active)))
 		{
 			
 			cout<< "Количество активных цехов не должно превышать количество всех цехов\n\n";
@@ -142,8 +137,10 @@ int AddCS(CS& cs)
 			InputCorrectNumber(cs.csworkshop_in_active);
 		}
 		
-
-		cs.cseffective = double(cs.csworkshop_in_active) / double(cs.csworkshop);
+		if (cs.csworkshop != 0)
+		{
+			cs.cseffective = double(cs.csworkshop_in_active) / double(cs.csworkshop);
+		}
 	}
 	else
 	{
@@ -158,14 +155,14 @@ int AddCS(CS& cs)
 int ChangeCS(CS& cs)
 {
 
-	if (cs.csworkshop > 0)
+	if (cs.csname != "")
 	{
 		cout << "Введите количество цехов: ";
 		InputCorrectNumber(cs.csworkshop);
 
 		cout << "Введите количество цехов в работе: ";
 		InputCorrectNumber(cs.csworkshop_in_active);
-		while (!((cs.csworkshop) > (cs.csworkshop_in_active)))
+		while (((cs.csworkshop) < (cs.csworkshop_in_active)))
 		{
 
 			cout << "Количество активных цехов не должно превышать количество всех цехов\n\n";
@@ -184,58 +181,53 @@ int ChangeCS(CS& cs)
 	return  1;
 };
 
-void show_All( Pipe& p, CS& cs)
+void show_Pipe(const Pipe& p)//!!!
 {
-	if ((p.pipename != "")&&(cs.csname!=""))
+	if (p.pipelength != 0)
 	{
-		system("cls");
+		
 		cout << "------ТРУБА------" <<
 			"\nНазвание: " << p.pipename <<
 			"\nДлина: " << p.pipelength <<
 			"\nДиаметр: " << p.pipediameter <<
-			"\nНаходится в ремонте? (1 - Да, 2 - Нет) " << p.piperepair <<
+			"\nНаходится в ремонте? (1 - Да, 0 - Нет) " << p.piperepair <<
 			"\n--------------------\n\n";
 
-			cout << "------КС------" <<
-			"\nНазвание: " << cs.csname <<
-			"\nКоличество цехов: " << cs.csworkshop <<
-			"\nКоличество цехов в работе: " << cs.csworkshop_in_active <<
-			"\nЭффективность: " << cs.cseffective <<
-			"\n--------------------\n\n";
+			
 
 	}
 
-	else if ((p.pipename != "") && (cs.csname == ""))
+	else
 	{
-		system("cls");
-		cout << "------ТРУБА------" <<
-			"\nНазвание: " << p.pipename <<
-			"\nДлина: " << p.pipelength <<
-			"\nДиаметр: " << p.pipediameter <<
-			"\nНаходится в ремонте? (1 - Да, 2 - Нет) " << p.piperepair <<
-			"\n--------------------\n\n";
-		cout << "Создайте свою первую КС\n\n";
+		
+		cout << "Создайте свою первую трубу\n\n";
+		
 	}
-	else if ((p.pipename == "") && (cs.csname != ""))
+};
+
+void show_CS(const CS& cs)//!!!
+{
+	if (cs.csname != "")
 	{
-		system("cls");
+
 		cout << "------КС------" <<
 			"\nНазвание: " << cs.csname <<
 			"\nКоличество цехов: " << cs.csworkshop <<
 			"\nКоличество цехов в работе: " << cs.csworkshop_in_active <<
 			"\nЭффективность: " << cs.cseffective <<
 			"\n--------------------\n\n";
-		cout << "Создайте свою первую трубу\n\n";
+
+
+
 	}
 	else
 	{
-		system("cls");
-		cout << "Создайте свою первую трубу\n\n";
-		cout << "Создайте свою первую КС\n\n";
+		cout << "Создайте свою первую кс\n\n";
+
 	}
 };
 
-void Save(Pipe& pipe, CS& cs)
+void Save(Pipe& pipe, CS& cs)//!!
 {
 	ofstream out;
 	out.open("save.txt");
@@ -247,14 +239,14 @@ void Save(Pipe& pipe, CS& cs)
 		}
 		else
 		{
-			out << "Name of pipe: "  ;
+			
 			out << (pipe.pipename) << endl;
-			out << "lenght of pipe: ";
-			out << std::to_string(pipe.pipelength) << endl;
-			out << "diametr of pipe: ";
-			out << std::to_string(pipe.pipediameter) << endl;
-			out << "Is repairing (1 - Yes, 2 - No)?: ";
-			out << std::to_string(pipe.piperepair) << endl;
+			
+			out << pipe.pipelength << endl;
+			
+			out << pipe.pipediameter << endl;
+			
+			out << pipe.piperepair << endl;
 		}
 
 		if (cs.csname == "")
@@ -263,14 +255,13 @@ void Save(Pipe& pipe, CS& cs)
 
 		}
 		else {
-			out << "Name of CS: ";
+			
 			out << cs.csname << endl;
-			out << "Workshop: ";
-			out << std::to_string(cs.csworkshop) << endl;
-			out << "Workshop in active: ";
-			out << std::to_string(cs.csworkshop_in_active) << endl;
-			out << "Effectivity: ";
-			out << std::to_string(cs.cseffective) << endl;
+			out << cs.csworkshop << endl;
+			
+			out << cs.csworkshop_in_active << endl;
+			
+			out << cs.cseffective << endl;
 		}
 	}
 	out.close();
@@ -284,7 +275,7 @@ void Load(string filename, Pipe& pipe, CS& cs)
 	if (infile.is_open())
 	{
 		string name, nameC;
-		int lenghtStr, diameterStr, repairStr, numShopsStr, workingShopsStr;
+		int lenghtStr, diameterStr, repairStr, numShopsStr, workingShopsStr;///!!!!!!!!
 		double effeciencyStr;
 		infile >> name;
 		infile >> lenghtStr;
@@ -323,14 +314,15 @@ int main()
 	{
 
 		cout << "------МЕНЮ------\n";
-		cout << "1. Показать все объекты\n";
-		cout << "2. Добавить трубу\n";
-		cout << "3. Изменить состояние ремонта\n";
-		cout << "4. Добавить КС\n";
-		cout << "5. Изменить количество рабочих цехов\n";
-		cout << "6. Cохранить в файл\n";
-		cout << "7. Взять данные из файла\n";
-		cout << "8. Выйти из программы\n";
+		cout << "1. Показать трубу\n";
+		cout << "2. Показать КС\n";
+		cout << "3. Добавить трубу\n";
+		cout << "4. Изменить состояние ремонта\n";
+		cout << "5. Добавить КС\n";
+		cout << "6. Изменить количество рабочих цехов\n";
+		cout << "7. Cохранить в файл\n";
+		cout << "8. Взять данные из файла\n";
+		cout << "9. Выйти из программы\n";
 		cout << "----------------\n";
 
 		cout << "\nВыбор действия: ";
@@ -341,34 +333,38 @@ int main()
 		switch (chose)
 		{
 		case 1:
-			show_All(pipeline, cs);
+			show_Pipe(pipeline);
 			break;
 
 		case 2:
-			AddPipe(pipeline);
+			show_CS(cs);
 			break;
 
 		case 3:
-			ChangeRepair(pipeline);
+			AddPipe(pipeline);
 			break;
 
 		case 4:
-			AddCS(cs);
+			ChangeRepair(pipeline);
 			break;
 
 		case 5:
-			ChangeCS(cs);
+			AddCS(cs);
 			break;
 
 		case 6:
-			Save(pipeline, cs);
+			ChangeCS(cs);
 			break;
 
 		case 7:
-			Load("import.txt",pipeline, cs);
+			Save(pipeline, cs);
 			break;
 
 		case 8:
+			Load("save.txt",pipeline, cs);
+			break;
+
+		case 9:
 			cout << "До новых встреч!" << endl;
 			return 0;
 
