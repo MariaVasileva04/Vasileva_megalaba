@@ -32,12 +32,12 @@ struct Pipe
 int AddPipe(Pipe& pipe) {
 	if ((pipe.pipename != ""))
 	{
-		system("cls");
+	
 		cout << "У вас уже есть труба\n\n";
 		return 1;
 	}
 
-	system("cls");//!
+	
 
 	cout << "Введите название трубы: ";
 	cin.ignore();
@@ -49,55 +49,20 @@ int AddPipe(Pipe& pipe) {
 	InputCorrectNumber(pipe.pipediameter);
 	cout << "Находится ли труба сейчас в ремонте?? (1 - Да, 0 - Нет) ";
 	InputCorrectNumber(pipe.piperepair);
-	/*if (pipe.repair!= 1 || pipe.repair != 2)
-	{
-		pipe.piperepair = pipe.repair;
-		while (!(pipe.piperepair == 2 || pipe.piperepair == 1))
-		{
-			cin.clear();
-			cin.ignore(100000, '\n');
-			cout << "Ошибка! Введите 1 или 2: ";
-			InputCorrectNumber(pipe.piperepair);
-
-		}
-	}
-	else
-	{
-		pipe.piperepair = pipe.repair;
-	}*/
-
-
-	system("cls");//!!!!
-
-	//!!???
+	
 }
 
 
 
 int ChangeRepair(Pipe& pipe)
 {
-	//cout << "изменить ремонт\n\n";
+
 	if (pipe.pipelength != 0)
 	{
 		pipe.piperepair = 0;
 		cout << "Находится ли труба сейчас в ремонте?? (1 - Да, 0 - Нет) ";
 		InputCorrectNumber(pipe.piperepair);
-		 
-		/*if (pipe.repair != 1 || pipe.repair != 2)
-		{
-			pipe.piperepair = pipe.repair;
-			while (!(pipe.piperepair == 2 || pipe.piperepair == 1))
-			{
-
-				cout << "Ошибка! Введите 1 или 2: ";
-				InputCorrectNumber(pipe.piperepair);
-
-			}
-		}*/
 		
-
-
-		system("cls");
 	}
 	else
 	{
@@ -117,10 +82,13 @@ struct CS
 };
 int AddCS(CS& cs)
 {
-	if ((cs.csname==""))
+	if ((cs.csname!=""))
 	{
-		system("cls");
+		cout << "У вас уже есть компрессорная станция \n\n";
 
+	}
+	else
+	{
 		cout << "Введите название компрессорной станции: ";
 		cin.ignore();
 		getline(cin, cs.csname);
@@ -131,21 +99,16 @@ int AddCS(CS& cs)
 		InputCorrectNumber(cs.csworkshop_in_active);
 		while (!((cs.csworkshop) >= (cs.csworkshop_in_active)))
 		{
-			
-			cout<< "Количество активных цехов не должно превышать количество всех цехов\n\n";
+
+			cout << "Количество активных цехов не должно превышать количество всех цехов\n\n";
 			cout << "Введите корректное значение: ";
 			InputCorrectNumber(cs.csworkshop_in_active);
 		}
-		
+
 		if (cs.csworkshop != 0)
 		{
 			cs.cseffective = double(cs.csworkshop_in_active) / double(cs.csworkshop);
 		}
-	}
-	else
-	{
-		system("cls");
-		cout << "У вас уже есть компрессорная станция \n\n";
 	}
 	return 1;
 };
@@ -155,8 +118,14 @@ int AddCS(CS& cs)
 int ChangeCS(CS& cs)
 {
 
-	if (cs.csname != "")
+	if (cs.csname == "")
 	{
+		cout << "Создайте компрессорную станцию \n\n";
+
+	}
+	else
+	{
+
 		cout << "Введите количество цехов: ";
 		InputCorrectNumber(cs.csworkshop);
 
@@ -169,12 +138,6 @@ int ChangeCS(CS& cs)
 			cout << "Введите корректное значение: ";
 			InputCorrectNumber(cs.csworkshop_in_active);
 		}
-
-	}
-	else
-	{
-		system("cls");
-		cout << "Создайте компрессорную станцию \n\n";
 	}
 
 	cs.cseffective = double(cs.csworkshop_in_active) / double(cs.csworkshop);
@@ -183,7 +146,14 @@ int ChangeCS(CS& cs)
 
 void show_Pipe(const Pipe& p)//!!!
 {
-	if (p.pipelength != 0)
+	if (p.pipelength == 0)
+	{
+		
+		cout << "Создайте свою первую трубу\n\n";
+		
+	}
+
+	else
 	{
 		
 		cout << "------ТРУБА------" <<
@@ -192,37 +162,26 @@ void show_Pipe(const Pipe& p)//!!!
 			"\nДиаметр: " << p.pipediameter <<
 			"\nНаходится в ремонте? (1 - Да, 0 - Нет) " << p.piperepair <<
 			"\n--------------------\n\n";
-
-			
-
-	}
-
-	else
-	{
-		
-		cout << "Создайте свою первую трубу\n\n";
 		
 	}
 };
 
 void show_CS(const CS& cs)//!!!
 {
-	if (cs.csname != "")
+	if (cs.csname == "")
 	{
 
+		cout << "Создайте свою первую кс\n\n";
+		
+	}
+	else
+	{
 		cout << "------КС------" <<
 			"\nНазвание: " << cs.csname <<
 			"\nКоличество цехов: " << cs.csworkshop <<
 			"\nКоличество цехов в работе: " << cs.csworkshop_in_active <<
 			"\nЭффективность: " << cs.cseffective <<
 			"\n--------------------\n\n";
-
-
-
-	}
-	else
-	{
-		cout << "Создайте свою первую кс\n\n";
 
 	}
 };
@@ -301,7 +260,9 @@ CS Load_CS(ifstream& fin, CS& cs)
 		cs.csname = Marker;
 		fin >> cs.csworkshop;
 		fin >> cs.csworkshop_in_active;
+		cs.cseffective = double(cs.csworkshop_in_active) / double(cs.csworkshop);
 		return cs;
+		
 	}
 
 }
