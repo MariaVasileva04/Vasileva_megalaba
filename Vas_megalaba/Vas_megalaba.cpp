@@ -227,77 +227,83 @@ void show_CS(const CS& cs)//!!!
 	}
 };
 
-void Save(Pipe& pipe, CS& cs)//!!
+void Save_Pipe(ofstream& fout, const Pipe& pipe)//!!
 {
-	ofstream out;
-	out.open("save.txt");
-	if (out.is_open())
+
+	string Marker = "Pipeline";
+
+	if (pipe.pipename == "") fout << Marker << endl;
+
+	else
 	{
-		if (pipe.pipename == "")
-		{
-			cout << "У вас нет трубы \n";
-		}
-		else
-		{
-			
-			out << (pipe.pipename) << endl;
-			
-			out << pipe.pipelength << endl;
-			
-			out << pipe.pipediameter << endl;
-			
-			out << pipe.piperepair << endl;
-		}
 
-		if (cs.csname == "")
-		{
-			cout << "У вас нет компрессорной станции\n";
+		fout << (pipe.pipename) << endl;
 
-		}
-		else {
-			
-			out << cs.csname << endl;
-			out << cs.csworkshop << endl;
-			
-			out << cs.csworkshop_in_active << endl;
-			
-			out << cs.cseffective << endl;
-		}
+		fout << pipe.pipelength << endl;
+
+		fout << pipe.pipediameter << endl;
+
+		fout << pipe.piperepair << endl;
 	}
-	out.close();
-	cout << "Данные записаны в файл\n";
+
 }
 
-void Load(string filename, Pipe& pipe, CS& cs)
+void Save_CS(ofstream& fout, const CS& cs)//!!
 {
-	ifstream infile;
-		infile.open(filename);
-	if (infile.is_open())
-	{
-		string name, nameC;
-		int lenghtStr, diameterStr, repairStr, numShopsStr, workingShopsStr;///!!!!!!!!
-		double effeciencyStr;
-		infile >> name;
-		infile >> lenghtStr;
-		infile >> diameterStr;
-		infile >> repairStr;
-		pipe.pipename = name;
-		pipe.pipelength = lenghtStr;
-		pipe.pipediameter = diameterStr;
-		pipe.piperepair = repairStr;
+	
+	string Marker = "CS";
+	if (cs.csname == "") fout << Marker << endl;
+	
+	else {
 
-		infile >> nameC;
-		infile >> numShopsStr;
-		infile >> workingShopsStr;
-		infile >> effeciencyStr;
-		cs.csname = nameC;
-		cs.csworkshop = numShopsStr;
-		cs.csworkshop_in_active = workingShopsStr;
-		cs.cseffective = effeciencyStr;
+		fout << cs.csname << endl;
+		fout << cs.csworkshop << endl;
+		fout << cs.csworkshop_in_active << endl;
+		fout << cs.cseffective << endl;
 	}
-	infile.close();
-	cout << "Данные из файла сохранены " << filename;
-	cout << "\n\n";
+
+}
+
+Pipe Load_Pipe(ifstream& fin, Pipe& pipe)
+{
+	
+	string Marker;
+	getline(fin >> ws, Marker);
+	if (Marker == "Pipeline")
+	{
+		return pipe = { "", 0, 0, 0 };
+	}
+
+	else
+	{
+		pipe.pipename = Marker;
+		fin >> pipe.pipelength;
+		fin >> pipe.pipediameter;
+		fin >> pipe.piperepair;
+		return pipe;
+	}
+	
+}
+
+CS Load_CS(ifstream& fin, CS& cs)
+{
+
+	string Marker;
+	getline(fin >> ws, Marker);
+
+	if (Marker == "CS")
+	{
+		return cs = { "", 0, 0 };
+	}
+
+	else
+	{
+		cs.csname = Marker;
+		fin >> cs.csworkshop;
+		fin >> cs.csworkshop_in_active;
+		return cs;
+	}
+
 }
 
 
@@ -314,15 +320,14 @@ int main()
 	{
 
 		cout << "------МЕНЮ------\n";
-		cout << "1. Показать трубу\n";
-		cout << "2. Показать КС\n";
-		cout << "3. Добавить трубу\n";
-		cout << "4. Изменить состояние ремонта\n";
-		cout << "5. Добавить КС\n";
-		cout << "6. Изменить количество рабочих цехов\n";
-		cout << "7. Cохранить в файл\n";
-		cout << "8. Взять данные из файла\n";
-		cout << "9. Выйти из программы\n";
+		cout << "1. Показать все объекты\n";
+		cout << "2. Добавить трубу\n";
+		cout << "3. Изменить состояние ремонта\n";
+		cout << "4. Добавить КС\n";
+		cout << "5. Изменить количество рабочих цехов\n";
+		cout << "6. Cохранить в файл\n";
+		cout << "7. Взять данные из файла\n";
+		cout << "8. Выйти из программы\n";
 		cout << "----------------\n";
 
 		cout << "\nВыбор действия: ";
@@ -334,37 +339,62 @@ int main()
 		{
 		case 1:
 			show_Pipe(pipeline);
-			break;
-
-		case 2:
 			show_CS(cs);
 			break;
 
-		case 3:
+
+		case 2:
 			AddPipe(pipeline);
 			break;
 
-		case 4:
+		case 3:
 			ChangeRepair(pipeline);
 			break;
 
-		case 5:
+		case 4:
 			AddCS(cs);
 			break;
 
-		case 6:
+		case 5:
 			ChangeCS(cs);
 			break;
 
-		case 7:
-			Save(pipeline, cs);
+
+		case 6:
+		{
+			ofstream fout("save.txt");
+			if (fout.is_open())
+			{
+				Save_Pipe(fout, pipeline);
+				Save_CS(fout, cs);
+			}
+
+			else
+			{
+				cout << "Файл не открывается" << endl;
+			}
 			break;
+		}
+			
+			
+
+		case 7:
+		{
+			ifstream fin("save.txt");
+			if (fin.is_open())
+			{
+				pipeline = Load_Pipe(fin, pipeline);
+				cs = Load_CS(fin, cs);
+				fin.close();
+			}
+			else
+			{
+				cout << "Файл не открывается" << endl;
+			}
+			break;
+		}
 
 		case 8:
-			Load("save.txt",pipeline, cs);
-			break;
-
-		case 9:
 			cout << "До новых встреч!" << endl;
 			return 0;
 
