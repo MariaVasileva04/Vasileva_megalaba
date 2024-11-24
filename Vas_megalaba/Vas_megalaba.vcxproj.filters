@@ -47,5 +47,8 @@
     <ClInclude Include="CS_f.h">
       <Filter>Исходные файлы</Filter>
     </ClInclude>
+    <ClInclude Include="filter.h">
+      <Filter>Исходные файлы</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

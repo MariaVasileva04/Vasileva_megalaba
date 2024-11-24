@@ -137,6 +137,7 @@
   <ItemGroup>
     <ClInclude Include="CS.h" />
     <ClInclude Include="CS_f.h" />
+    <ClInclude Include="filter.h" />
     <ClInclude Include="pipe.h" />
     <ClInclude Include="pipe_f.h" />
   </ItemGroup>
