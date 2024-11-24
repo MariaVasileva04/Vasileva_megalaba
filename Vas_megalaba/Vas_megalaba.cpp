@@ -20,6 +20,8 @@ void InputCorrectNumber(T& var)
 	}
 };
 
+
+
 struct Pipe
 {
 	string pipename = "";
@@ -66,7 +68,7 @@ int ChangeRepair(Pipe& pipe)
 	}
 	else
 	{
-		system("cls");
+		
 		cout << "У вас нет трубы\n\n";
 	}
 	return 1;

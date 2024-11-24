@@ -127,7 +127,18 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="CS.cpp" />
+    <ClCompile Include="CS_f.cpp" />
+    <ClCompile Include="filter.cpp" />
+    <ClCompile Include="pipe_f.cpp" />
+    <ClCompile Include="truba.cpp" />
     <ClCompile Include="Vas_megalaba.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="CS.h" />
+    <ClInclude Include="CS_f.h" />
+    <ClInclude Include="pipe.h" />
+    <ClInclude Include="pipe_f.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
