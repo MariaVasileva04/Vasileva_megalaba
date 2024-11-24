@@ -33,6 +33,9 @@
     <ClCompile Include="filter.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="ost.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pipe.h">
@@ -48,6 +51,9 @@
       <Filter>Исходные файлы</Filter>
     </ClInclude>
     <ClInclude Include="filter.h">
+      <Filter>Исходные файлы</Filter>
+    </ClInclude>
+    <ClInclude Include="ost.h">
       <Filter>Исходные файлы</Filter>
     </ClInclude>
   </ItemGroup>

@@ -1,6 +1,6 @@
 #include <iostream>
-#include "../header_files/filter.h"
-#include "../header_files/utils.h"
+#include "filter.h"
+#include "ost.h"
 
 using namespace std;
 

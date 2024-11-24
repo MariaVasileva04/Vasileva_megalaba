@@ -130,6 +130,7 @@
     <ClCompile Include="CS.cpp" />
     <ClCompile Include="CS_f.cpp" />
     <ClCompile Include="filter.cpp" />
+    <ClCompile Include="ost.cpp" />
     <ClCompile Include="pipe_f.cpp" />
     <ClCompile Include="truba.cpp" />
     <ClCompile Include="Vas_megalaba.cpp" />
@@ -138,6 +139,7 @@
     <ClInclude Include="CS.h" />
     <ClInclude Include="CS_f.h" />
     <ClInclude Include="filter.h" />
+    <ClInclude Include="ost.h" />
     <ClInclude Include="pipe.h" />
     <ClInclude Include="pipe_f.h" />
   </ItemGroup>
