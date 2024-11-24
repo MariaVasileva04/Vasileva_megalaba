@@ -29,4 +29,4 @@ public:
 
     friend std::ostream& operator << (std::ostream& os, const Pipe& pipe);
     void save(std::ofstream& file) const;
-}; #pragma once
+};

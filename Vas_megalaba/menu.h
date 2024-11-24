@@ -24,13 +24,13 @@ void edit_pipes_menu(std::unordered_map<int, Pipe>& pipes, std::unordered_set<in
 
 // CS menu
 void print_CS_menu();
-void CS_menu(std::unordered_map<int, CompressorStation>& c_ss, std::unordered_set<int>& selected_css);
+void CS_menu(std::unordered_map<int, CompressionStation>& c_ss, std::unordered_set<int>& selected_css);
 
 void print_select_CS_menu();
-void select_CS_menu(std::unordered_map<int, CompressorStation>& c_ss, std::unordered_set<int>& selected_css);
+void select_CS_menu(std::unordered_map<int, CompressionStation>& c_ss, std::unordered_set<int>& selected_css);
 
 void print_filter_CS();
-void filter_CS_menu(std::unordered_map<int, CompressorStation>& c_ss, std::unordered_set<int>& selected_css);
+void filter_CS_menu(std::unordered_map<int, CompressionStation>& c_ss, std::unordered_set<int>& selected_css);
 
 void print_edit_CS_menu();
-void edit_CS_menu(std::unordered_map<int, CompressorStation>& c_ss, std::unordered_set<int>& selected_css);
+void edit_CS_menu(std::unordered_map<int, CompressionStation>& c_ss, std::unordered_set<int>& selected_css);
